@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import List
 import pandas as pd
+from fastapi.responses import FileResponse  # <- moved this to the top
 
 app = FastAPI()
 
@@ -51,3 +52,10 @@ def analyze_trade(trade: TradeRequest):
         "teamBGrade": teamBGrade,
         "analysisSummary": f"Team A value: {valueA}, Team B value: {valueB}. {'Team B wins' if diff > 0 else 'Team A wins' if diff < 0 else 'It’s a fair trade'}."
     }
+
+# Serve your OpenAPI YAML file for Custom GPT integration
+@app.get("/.well-known/openapi.yaml", include_in_schema=False)
+def get_openapi_spec():
+    return FileResponse("openapi.yaml", media_type="text/yaml")
+
+
