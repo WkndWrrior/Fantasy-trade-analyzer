@@ -1,0 +1,54 @@
+openapi: 3.1.0
+info:
+  title: Fantasy Football Trade Analyzer
+  description: >
+    Analyze fantasy football trades using real player values from FantasyPros.
+    Submit two sets of players and get back a trade grade and summary.
+  version: 1.0.0
+servers:
+  - url: https://fantasy-trade-analyzer.onrender.com
+    description: Public Render deployment
+paths:
+  /api/analyze:
+    post:
+      operationId: analyzeTrade
+      summary: Analyze a fantasy football trade
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                teamA:
+                  type: array
+                  items:
+                    type: string
+                  example: ["Kenneth Walker"]
+                  description: Players you are trading away
+                teamB:
+                  type: array
+                  items:
+                    type: string
+                  example: ["Zay Flowers"]
+                  description: Players you are receiving
+              required:
+                - teamA
+                - teamB
+      responses:
+        '200':
+          description: Trade analysis results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  teamAGrade:
+                    type: string
+                    example: "C+"
+                  teamBGrade:
+                    type: string
+                    example: "B"
+                  analysisSummary:
+                    type: string
+                    example: "Team B wins this trade slightly based on player values and projected points."
