@@ -6,7 +6,7 @@ info:
     Submit two sets of players and get back a trade grade and summary.
   version: 1.0.0
 servers:
-  - url: https://fantasy-trade-analyzer.onrender.com
+  - url: https://fantasy-trade-analyzer-ot0w.onrender.com
     description: Public Render deployment
 paths:
   /api/analyze:
